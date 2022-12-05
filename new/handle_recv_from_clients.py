@@ -1,29 +1,11 @@
 
 import select 
-from collect_data_from_list_of_clients import collect_data_from_single_client
 from server_packet_gen import get_server_leave_packet_from_nick, get_server_chat_packet_from_message_and_nick 
 from server_packet_gen import get_server_join_packet_from_nick 
 
 from can_pop import can_pop 
 from slice_buf_to_dict import slice_buf_to_dict 
 from broadcast import broadcast 
-
-# def handle_recv_from_clients(clients, buffer_dict, nick_dict):
-#   ready, _, _ = select.select(clients, {}, {})
-#   for s in ready:
-# 
-#     d = collect_data_from_single_client(s)
-#     if (len(d) == 0):
-#       packet_to_broadcast = get_server_leave_packet_from_nick(nick_dict[s])
-#       broadcast(clients, packet_to_broadcast)
-#       clients.remove(s)
-#     else:
-#       buffer_dict[s] += d
-#   return clients, buffer_dict, nick_dict 
-# 
-#   # if complete, return 
-#   # if guaranteed to be ready. If empty, then break 
-#   # 
 
 def handle_recv_from_clients(clients, buffer_dict, nick_dict):
   print("Before select")

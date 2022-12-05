@@ -1,6 +1,5 @@
 
 import select 
-from collect_data_from_list_of_clients import collect_data_from_single_client 
 from slice_buf_to_dict import slice_buf_to_dict 
 from server_packet_gen import get_server_join_packet_from_nick, get_server_chat_packet_from_message_and_nick 
 from broadcast import broadcast 
