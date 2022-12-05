@@ -6,7 +6,7 @@ def client_prompt(name):
   return read_command("{}> ".format(name))
 
 def is_quit(msg):
-  return (msg == "/quit")
+  return (msg == "/q")
 
 def is_command(msg):
   if (len(msg) == 0):

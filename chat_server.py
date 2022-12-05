@@ -9,9 +9,14 @@ from slice_buf_to_dict import slice_buf_to_dict
 from can_pop import can_pop 
 from packet_gen import * 
 
+def usage():
+    print("usage: chat_server.py port", file=sys.stderr)
 
-
-port = int(sys.argv[1]) 
+try:
+  port = int(sys.argv[1])
+except:
+  usage()
+  sys.exit()
 
 buf_dict = {}
 name_dict = {} 
@@ -20,7 +25,8 @@ listening_socket.bind(('', port))
 listening_socket.listen()
 ready_set = {listening_socket}
 
-def run_server(port):
+
+def run_server():
     global buf_dict, ready_set, listening_socket, name_dict 
     print("waiting for connections")
 
@@ -39,19 +45,23 @@ def run_server(port):
         else:
           # dictionary if it is a hello packet or hello packet 
           dict_or_none = get_client_packet(s)
+          # If None, then client sent empty packet; the client left 
           if dict_or_none == None:
             broadcast_leave(name_dict[s])
             ready_set.remove(s)
             del buf_dict[s]
             del name_dict[s]
 
+          # if type is hello, broadcast that the client joined and add them to the name dictionary 
           elif dict_or_none['type'] == 'hello':
             broadcast_join(dict_or_none['nick']) 
             name_dict[s] = dict_or_none['nick'] 
             
+          # if type is chat, broadcast the message along with the client's name 
           elif dict_or_none['type'] == 'chat':
             broadcast_chat(dict_or_none['message'], name_dict[s])
 
+          # if the packet is none of those types, print not registered 
           else:
             print("Packet not registered")
 
@@ -70,7 +80,8 @@ def broadcast(packet):
     s.send(packet)
 
 def get_client_packet(s):
-  # assumes that the socket is a client 
+  # assumes that the socket is a client and
+  # is ready from `select.select`. 
   # returns `None` or a dictionary with packet information. 
   # if it returns `None`, then it is the client disconnecting. 
   global buf_dict, name_dict, listening_socket, ready_set 
@@ -86,28 +97,4 @@ def get_client_packet(s):
       return None 
     buf_dict[s] += d 
 
-      
-      
-
-
-
-
-
-#--------------------------------#
-# Do not modify below this line! #
-#--------------------------------#
-
-def usage():
-    print("usage: select_server.py port", file=sys.stderr)
-
-def main(argv):
-    try:
-        port = int(argv[1])
-    except:
-        usage()
-        return 1
-
-    run_server(port)
-
-if __name__ == "__main__":
-    sys.exit(main(sys.argv))
+run_server()
