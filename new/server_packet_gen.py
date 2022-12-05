@@ -11,7 +11,7 @@ def get_server_chat_packet_from_message_and_nick(msg, nick):
   return _dict_to_packet(type='chat', nick=nick, message=msg)
 
 def get_server_join_packet_from_nick(nick):
-  return _dict_to_packet(type='join', nick=nick)
+  return _dict_to_packet(type='hello', nick=nick)
 
 def get_server_leave_packet_from_nick(nick):
   return _dict_to_packet(type='leave', nick=nick)
