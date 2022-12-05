@@ -5,13 +5,6 @@ from messages import *
 from slice_buf_to_dict import *
 from can_pop import * 
 
-# client_recv.py
-def display_messages(buf):
-  while is_poppable(buf):
-    msg, buf = pop(buf)
-    display_msg(msg)
-  return buf
-
 client_format_dict = {
   'chat': get_chat_msg,
   'hello': get_join_msg,

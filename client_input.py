@@ -20,7 +20,6 @@ def unknown_cmd(msg):
   return "Unknown command {}".format(msg)
 
 def input_fn(name, s, verbose=True):
-  s.send(get_client_hello_packet(name))
   while True:
     print("Prompting {} for message.".format(name))
     msg = client_prompt(name)
