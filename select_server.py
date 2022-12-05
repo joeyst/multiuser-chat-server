@@ -7,7 +7,7 @@ import socket
 import select
 from slice_buf_to_dict import slice_buf_to_dict
 from can_pop import can_pop 
-from server_packet_gen import * 
+from packet_gen import * 
 
 
 
