@@ -28,7 +28,6 @@ def run_server(port):
       ready_to_read, _, _ = select.select(ready_set, {}, {})
 
       for s in ready_to_read:
-        print_globals()
         # if socket is listener socket 
         if s == listening_socket:
           new_conn, src = s.accept()
@@ -41,32 +40,18 @@ def run_server(port):
           # dictionary if it is a hello packet or hello packet 
           dict_or_none = get_client_packet(s)
           if dict_or_none == None:
-            print_globals()
             broadcast_leave(name_dict[s])
             ready_set.remove(s)
 
           elif dict_or_none['type'] == 'hello':
-            print("Hello packet registered ")
-            print_globals()
             broadcast_hello(dict_or_none['nick']) 
             name_dict[s] = dict_or_none['nick'] 
             
           elif dict_or_none['type'] == 'chat':
-            print("Chat packet registered ")
-            print_globals()
             broadcast_chat(dict_or_none['message'], name_dict[s])
 
           else:
-            print_globals()
             print("Packet not registered")
-
-def print_globals():
-  global buf_dict, name_dict, ready_set, listening_socket
-
-  print("buf_dict:", buf_dict)
-  print("name_dict:", name_dict)
-  print("ready_set:", ready_set)
-  print("listening_socket:", listening_socket)
 
 def broadcast_leave(name):
   broadcast(get_server_leave_packet_from_nick(name))
