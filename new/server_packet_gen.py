@@ -1,5 +1,10 @@
 
-from helper.dict_to_packet import _dict_to_packet 
+import json
+
+def _dict_to_packet(**kwargs):
+  jsoned = json.dumps(kwargs).encode('utf-8')
+  length = int.to_bytes(len(jsoned), 2, 'big')
+  return length + jsoned
 
 def get_client_chat_packet_from_message(msg):
   return _dict_to_packet(type='chat', message=msg)
