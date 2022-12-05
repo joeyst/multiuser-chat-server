@@ -42,6 +42,8 @@ def run_server(port):
           if dict_or_none == None:
             broadcast_leave(name_dict[s])
             ready_set.remove(s)
+            del buf_dict[s]
+            del name_dict[s]
 
           elif dict_or_none['type'] == 'hello':
             broadcast_hello(dict_or_none['nick']) 
