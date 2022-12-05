@@ -2,6 +2,34 @@
 import json
 from packet_decode import pop_dict
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# Old
+
 def dict_to_packet(**kwargs):
   jsoned = json.dumps(kwargs).encode('utf-8')
   length = int.to_bytes(len(jsoned), 2, 'big')
@@ -44,5 +72,5 @@ def is_client_hello(packet):
   except:
     return False 
 
-def get_nick(packet):
-  return pop_dict(hello_packet)['nick']
+def get_nick(hello_packet):
+  return pop_dict(hello_packet)[0]['nick']

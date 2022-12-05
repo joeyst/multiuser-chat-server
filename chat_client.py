@@ -27,6 +27,7 @@ init_windows()
 # Sending hello packet to server with nickname 
 hello = get_client_hello_packet(NICK) 
 s.send(hello)
+print("Sent hello!")
 
 # Creating input and receiving threads 
 input_thread = threading.Thread(target=input_fn, args=(NICK, s))
