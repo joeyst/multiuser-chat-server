@@ -4,6 +4,7 @@ from packet_decode import is_poppable, pop
 from messages import *
 from slice_buf_to_dict import *
 from can_pop import * 
+from chatui import print_message
 
 client_format_dict = {
   'chat': get_chat_msg,
@@ -12,7 +13,7 @@ client_format_dict = {
 }
 
 def display_packet_from_dict(bdict):
-  print(client_format_dict[bdict['type']](**bdict))
+  print_message(client_format_dict[bdict['type']](**bdict))
 
 def recv_fn(s):
   buf = b''

@@ -28,7 +28,6 @@ ready_set = {listening_socket}
 
 def run_server():
     global buf_dict, ready_set, listening_socket, name_dict 
-    print("waiting for connections")
 
     while True:
       ready_to_read, _, _ = select.select(ready_set, {}, {})
@@ -39,7 +38,6 @@ def run_server():
           new_conn, src = s.accept()
           ready_set.add(new_conn)
           buf_dict[new_conn] = b''
-          print("{}:".format(new_conn.getpeername()), "connected")
 
         # if socket is client socket 
         else:

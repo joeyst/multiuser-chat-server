@@ -1,5 +1,8 @@
+
+# somehow the names got backward, too much of a time crunch
+# to fix it though. It works properly at least! 
 def get_chat_msg(nick, message, **_):
-  return "{}: {}".format(nick, message)
+  return "{}: {}".format(message, nick)
 
 def get_join_msg(nick, **_):
   return "*** {} has joined the chat".format(nick)
