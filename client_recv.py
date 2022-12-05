@@ -11,6 +11,15 @@ def display_messages(buf):
     display_msg(msg)
   return buf
 
+client_format_dict = {
+  'chat': get_chat_msg,
+  'hello': get_join_msg,
+  'leave': get_leave_msg
+}
+
+def display_packet_from_dict(bdict):
+  print(client_format_dict[bdict['type']](**bdict))
+
 def is_long_enough_to_get_length(buf):
   return len(buf) >= 2
 
@@ -47,7 +56,6 @@ def receive_input(s, buf):
 def recv_fn(s):
   buf = b''
 
-
   while True:
     if can_pop(buf):
       bdict, buf = slice_buf_to_dict(buf)
@@ -58,15 +66,3 @@ def recv_fn(s):
       return None 
     buf += d 
 
-  # while True:
-  #   buf = display_messages(buf)
-  #   buf = receive_input(s, buf)
-
-client_format_dict = {
-  'chat': get_chat_msg,
-  'hello': get_join_msg,
-  'leave': get_leave_msg
-}
-
-def display_packet_from_dict(bdict):
-  print(client_format_dict[bdict['type']](**bdict))

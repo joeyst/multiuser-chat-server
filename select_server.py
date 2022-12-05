@@ -46,7 +46,7 @@ def run_server(port):
             del name_dict[s]
 
           elif dict_or_none['type'] == 'hello':
-            broadcast_hello(dict_or_none['nick']) 
+            broadcast_join(dict_or_none['nick']) 
             name_dict[s] = dict_or_none['nick'] 
             
           elif dict_or_none['type'] == 'chat':
@@ -58,7 +58,7 @@ def run_server(port):
 def broadcast_leave(name):
   broadcast(get_server_leave_packet_from_nick(name))
 
-def broadcast_hello(name):
+def broadcast_join(name):
   broadcast(get_server_join_packet_from_nick(name))
 
 def broadcast_chat(name, msg):

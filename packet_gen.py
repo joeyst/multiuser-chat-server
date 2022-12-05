@@ -21,8 +21,6 @@ def get_client_hello_packet(nick):
 def get_server_chat_packet(msg, nick):
   return dict_to_packet(type='chat', nick=nick, message=msg)
 
-# Sorry for some confusing logic between 'join' and 'hello' here.... was a headache writing 
-# this and don't have the time to fix it. 
 def get_server_join_packet(nick):
   return dict_to_packet(type='join', nick=nick)
 
